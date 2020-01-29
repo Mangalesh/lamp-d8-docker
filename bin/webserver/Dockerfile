@@ -46,8 +46,6 @@ RUN docker-php-ext-install -j$(nproc) xml
 RUN docker-php-ext-install -j$(nproc) simplexml
 RUN docker-php-ext-install -j$(nproc) mcrypt
 RUN docker-php-ext-install -j$(nproc) dom
-
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ 
 RUN docker-php-ext-install -j$(nproc) gd    
 
 # Enable apache modules
