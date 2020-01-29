@@ -38,9 +38,8 @@ RUN docker-php-ext-install curl
 RUN docker-php-ext-install tokenizer
 RUN docker-php-ext-install json
 RUN apt-get -y install libicu-dev
-
 RUN docker-php-ext-install -j$(nproc) intl
-RUN docker-php-ext-install -j$(nproc) mbstring
+RUN docker-php-ext-install -j$(nproc) mbstring && docker-php-ext-enable mbstring
 
 RUN docker-php-ext-install -j$(nproc) xml
 RUN docker-php-ext-install -j$(nproc) simplexml
@@ -51,6 +50,5 @@ RUN docker-php-ext-install -j$(nproc) gd
 
 # Enable apache modules
 RUN a2enmod rewrite headers
-RUN phpenmod mbstring
 
 RUN chown -R www-data:www-data /var/www/
