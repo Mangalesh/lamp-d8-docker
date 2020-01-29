@@ -8,6 +8,8 @@ RUN apt-get -y install apt-utils vim wget
 
 # Install important libraries
 RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip
+RUN apt-get -y install php-gd php-xml php-mbstring php-cli unzip
+
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -41,9 +43,10 @@ RUN apt-get -y install libicu-dev
 
 RUN docker-php-ext-install -j$(nproc) intl
 RUN docker-php-ext-install mbstring
-RUN docker-php-ext-install -j$(nproc) gd
+
 
 # Enable apache modules
 RUN a2enmod rewrite headers
+RUN phpenmod mbstring
 
 RUN chown -R www-data:www-data /var/www/
