@@ -31,9 +31,9 @@
                                 <li>PHP <?= phpversion(); ?></li>
                                 <li>
                                     <?php
-                                    $link = mysqli_connect("mysql", "root", "tiger", null);
+                                    $link = mysqli_connect("mysql", "root", "root", null);
 
-/* check connection */
+                                    /* check connection */
                                     if (mysqli_connect_errno()) {
                                         printf("MySQL connecttion failed: %s", mysqli_connect_error());
                                     } else {
@@ -52,9 +52,9 @@
                         <hr>
                         <div class="content">
                             <ul>
-                                <li><a href="http://localhost/phpinfo.php">phpinfo()</a></li>
-                                <li><a href="http://localhost:8080">phpMyAdmin</a></li>
-                                <li><a href="http://localhost/test_db.php">Test DB Connection</a></li>
+                                <li><a href="http://ec2-18-191-107-187.us-east-2.compute.amazonaws.com/phpinfo.php">phpinfo()</a></li>
+                                <li><a href="http://ec2-18-191-107-187.us-east-2.compute.amazonaws.com/">phpMyAdmin</a></li>
+                                <li><a href="http://ec2-18-191-107-187.us-east-2.compute.amazonaws.com/test_db.php">Test DB Connection</a></li>
                             </ul>
                         </div>
                     </div>

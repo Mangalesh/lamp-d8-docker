@@ -30,15 +30,3 @@ services:
       MYSQL_DATABASE: d8_docker
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: 'png-phpmyadmin'
-    links:
-      - mysql
-    environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-    ports:
-      - '8080:80'
-    volumes: 
-      - /sessions
