@@ -7,7 +7,7 @@ RUN apt-get upgrade -y
 RUN apt-get -y install apt-utils vim wget
 
 # Install important libraries
-RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip libxml2-dev
+RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libpng12-dev
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -46,7 +46,8 @@ RUN docker-php-ext-install -j$(nproc) xml
 RUN docker-php-ext-install -j$(nproc) simplexml
 RUN docker-php-ext-install -j$(nproc) mcrypt
 RUN docker-php-ext-install -j$(nproc) dom
-RUN docker-php-ext-install -j$(nproc) gd    
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
+RUN docker-php-ext-install -j$(nproc) gd  
 
 # Enable apache modules
 RUN a2enmod rewrite headers
