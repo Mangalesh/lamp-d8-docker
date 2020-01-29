@@ -48,8 +48,7 @@ RUN composer global update
 
 
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
-RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
-
+# RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
 # Install Drupal Console. There are no stable releases yet, so set the minimum 
 # stability to dev.
