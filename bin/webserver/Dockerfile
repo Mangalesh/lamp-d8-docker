@@ -39,6 +39,7 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
+
 # Install Drush 8.
 RUN composer global require drush/drush
 ENV PATH="~/.composer/vendor/bin:${PATH}"
