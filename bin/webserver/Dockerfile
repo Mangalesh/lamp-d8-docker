@@ -9,22 +9,6 @@ RUN apt-get -y install apt-utils vim wget
 # Install important libraries
 RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip libxml2-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev
 
-# Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Install Drush 8.
-RUN composer global require drush/drush:8.*
-RUN composer global update
-
-# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
-RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
-
-# Install Drupal Console. There are no stable releases yet, so set the minimum 
-# stability to dev.
-RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
-	mv drupal.phar /usr/local/bin/drupal && \
-	chmod +x /usr/local/bin/drupal
-RUN drupal init
 
 # Other PHP7 Extensions
 RUN apt-get -y install libmcrypt-dev
@@ -48,6 +32,24 @@ RUN docker-php-ext-install -j$(nproc) dom
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-install -j$(nproc) gd  
 
+# Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install Drush 8.
+RUN composer global require drush/drush:8.*
+RUN composer global update
+
+# Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
+RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
+
+# Install Drupal Console. There are no stable releases yet, so set the minimum 
+# stability to dev.
+RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
+	mv drupal.phar /usr/local/bin/drupal && \
+	chmod +x /usr/local/bin/drupal
+RUN drupal init
+
+
 # Enable apache modules
 RUN a2enmod rewrite headers
 
@@ -64,8 +66,4 @@ RUN set -eux; \
 	echo "${DRUPAL_MD5} *drupal.tar.gz" | md5sum -c -; \
 	tar -xz --strip-components=1 -f drupal.tar.gz; \
 	rm drupal.tar.gz; \
-	chown -R www-data:www-data sites modules themes
-
-	
-
-
+	chown -R www-data:www-data sites modules themes	
