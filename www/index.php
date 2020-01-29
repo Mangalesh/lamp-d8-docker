@@ -23,7 +23,7 @@
             <div class="container">
                 <div class="columns">
                     <div class="column">
-                        <h3 class="title is-3 has-text-centered">Environment</h3>
+                        <h3 class="title is-3 has-text-centered">Docker Environment</h3>
                         <hr>
                         <div class="content">
                             <ul>
