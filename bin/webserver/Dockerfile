@@ -8,7 +8,7 @@ RUN apt-get -y install apt-utils vim wget
 
 # Install important libraries
 RUN apt-get -y install --fix-missing apt-utils build-essential git curl libcurl3 libcurl3-dev zip
-RUN apt-get -y install php-gd php-xml php-mbstring php-cli unzip
+RUN apt-get -y install gd xml php-cli
 
 
 # Composer
