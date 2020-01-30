@@ -4,7 +4,7 @@ services:
   webserver:
     build: 
       context: ./bin/webserver
-    container_name: 'png-webserver'
+    container_name: 'webserver-apache'
     restart: 'always'
     ports:
       - "80:80"
@@ -18,7 +18,7 @@ services:
       - ${LOG_DIR-./logs/apache2}:/var/log/apache2
   mysql:
     build: ./bin/mysql
-    container_name: 'png-mysql'
+    container_name: 'database-mysql'
     restart: 'always'
     ports:
       - "3306:3306"
@@ -31,7 +31,11 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
   drupal:
-    image: drupal
+    image: drupal:latest
+    ports:
+      - 80:80
+    volumes: 
+      - ${DOCUMENT_ROOT-./www}:/var/www/html
     depends_on:
       - mysql
     restart: always
