@@ -33,7 +33,7 @@ services:
   drupal:
     image: drupal:latest
     ports:
-      - 80:80
+      - 8080:8080
     volumes: 
       - ${DOCUMENT_ROOT-./www/web}:/var/www/html
     depends_on:
