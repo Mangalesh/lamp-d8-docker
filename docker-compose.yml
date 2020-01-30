@@ -31,9 +31,8 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
   drupal:
-    image: drupal:latest
     ports:
-      - 8080:8080
+      - "8080:8080"
     volumes: 
       - ${DOCUMENT_ROOT-./www/web}:/var/www/html
     depends_on:
