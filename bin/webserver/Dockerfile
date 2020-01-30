@@ -42,16 +42,16 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 RUN a2enmod rewrite
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php && \
-    mv composer.phar /usr/local/bin/composer && \
-    ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
+# RUN curl -sS https://getcomposer.org/installer | php && \
+#    mv composer.phar /usr/local/bin/composer && \
+#    ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
 
 # Install Drush 8.
-RUN composer global require drush/drush
-ENV PATH="~/.composer/vendor/bin:${PATH}"
-RUN drush --version
-RUN composer global update
+# RUN composer global require drush/drush
+# ENV PATH="~/.composer/vendor/bin:${PATH}"
+# RUN drush --version
+# RUN composer global update
 
 
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
@@ -73,13 +73,16 @@ RUN a2enmod headers
 
 # Drupal installation ::
 
-WORKDIR /var/www/html
-
+# WORKDIR /var/www/html
 # RUN curl http://drupalconsole.com/installer -L -o drupal.phar
 # RUN mv drupal.phar /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal
 # RUN drupal init
 
 
-RUN wget https://ftp.drupal.org/files/projects/drupal-8.8.1.zip
-RUN unzip drupal-8.8.1.zip
-RUN chown -R www-data:www-data /var/www/html
+# RUN wget https://ftp.drupal.org/files/projects/drupal-8.8.1.zip
+# RUN unzip drupal-8.8.1.zip
+# RUN chown -R www-data:www-data /var/www/html
+# RUN chmod +x /var/www/html
+
+EXPOSE 80
+EXPOSE 3306
