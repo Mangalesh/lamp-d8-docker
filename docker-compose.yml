@@ -36,7 +36,7 @@ services:
       - 80:80
     working_dir : /var/www/html
     volumes: 
-      - ${DOCUMENT_ROOT-./www}:/var/www/html
+      - ./www/web:/var/www/html
     depends_on:
       - mysql
     restart: always
