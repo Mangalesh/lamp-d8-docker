@@ -49,12 +49,13 @@ RUN composer global update
 # Unfortunately, adding the composer vendor dir to the PATH doesn't seem to work. So:
 # RUN ln -s /root/.composer/vendor/bin/drush /usr/local/bin/drush
 
+
 # Install Drupal Console. There are no stable releases yet, so set the minimum 
 # stability to dev.
-RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
-	mv drupal.phar /usr/local/bin/drupal && \
-	chmod +x /usr/local/bin/drupal
-RUN drupal init
+# RUN curl https://drupalconsole.com/installer -L -o drupal.phar && \
+#	mv drupal.phar /usr/local/bin/drupal && \
+#	chmod +x /usr/local/bin/drupal
+# RUN drupal init
 
 
 # Clean repository
@@ -68,7 +69,5 @@ RUN chown -R www-data:www-data /var/www/html
 WORKDIR /var/www/html
 
 RUN curl http://drupalconsole.com/installer -L -o drupal.phar
-RUN mv drupal.phar /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal
+RUN mv drupal.phar /var/www/html/ && chmod +x /var/www/html/drupal
 RUN drupal init
-
-WORKDIR /var/www/html
