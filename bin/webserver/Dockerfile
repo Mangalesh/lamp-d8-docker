@@ -1,4 +1,4 @@
-FROM php:7.1.20-apache
+FROM php:7.2-apache
 
 RUN apt-get -y update --fix-missing
 RUN apt-get upgrade -y
@@ -22,6 +22,11 @@ RUN docker-php-ext-install tokenizer
 RUN docker-php-ext-install json
 RUN apt-get -y install libicu-dev
 RUN docker-php-ext-install -j$(nproc) intl
+
+RUN docker-php-ext-install -j$(nproc) bcmath
+RUN docker-php-ext-install -j$(nproc) session
+RUN docker-php-ext-install -j$(nproc) opcache
+
 RUN docker-php-ext-install -j$(nproc) mbstring && docker-php-ext-enable mbstring
 
 RUN docker-php-ext-install -j$(nproc) xml
@@ -30,6 +35,9 @@ RUN docker-php-ext-install -j$(nproc) mcrypt
 RUN docker-php-ext-install -j$(nproc) dom
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ 
 RUN docker-php-ext-install -j$(nproc) gd
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
 RUN a2enmod rewrite
 
@@ -63,10 +71,15 @@ RUN apt-get clean
 # Enable apache modules
 RUN a2enmod headers
 
-RUN chown -R www-data:www-data /var/www/html
+# Drupal installation ::
 
 WORKDIR /var/www/html
 
-RUN curl http://drupalconsole.com/installer -L -o drupal.phar
-RUN mv drupal.phar /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal
-RUN drupal init
+# RUN curl http://drupalconsole.com/installer -L -o drupal.phar
+# RUN mv drupal.phar /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal
+# RUN drupal init
+
+
+RUN wget https://ftp.drupal.org/files/projects/drupal-8.8.1.zip
+RUN unzip drupal-8.8.1.zip
+RUN chown -R www-data:www-data /var/www/html

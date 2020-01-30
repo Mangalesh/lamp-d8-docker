@@ -34,9 +34,8 @@ services:
     image: drupal:latest
     ports:
       - 80:80
-    working_dir : /var/www/html
     volumes: 
-      - ./www/web:/var/www/html
+      - ${DOCUMENT_ROOT-./www/web}:/var/www/html
     depends_on:
       - mysql
     restart: always
