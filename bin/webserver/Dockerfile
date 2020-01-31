@@ -79,9 +79,9 @@ RUN a2enmod headers
 # RUN drupal init
 
 RUN wget https://ftp.drupal.org/files/projects/drupal-8.8.1.zip
-COPY drupal-8.8.1.zip /home/ubuntu/d8-docker-git/www/web/
+RUN mv /var/lib/docker/tmp/docker-builder467111395/drupal-8.8.1.zip /home/ubuntu/d8-docker-git/www/web/
 RUN unzip drupal-8.8.1.zip
-COPY /home/ubuntu/d8-docker-git/www/web/drupal-8.8.1 /home/ubuntu/d8-docker-git/www/web/drupal8
+RUN mv /var/lib/docker/tmp/docker-builder467111395/drupal-8.8.1 /home/ubuntu/d8-docker-git/www/web/drupal8
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod +x /var/www/html
 
