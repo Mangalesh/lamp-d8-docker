@@ -25,6 +25,7 @@ services:
     volumes: 
       - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
       - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
+    command: mysqld --max_allowed_packet=64M  
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: d8_docker
@@ -34,6 +35,9 @@ services:
     image: drupal:latest
     ports:
       - 8080:80
+    environment:
+      APACHE_DOCROOT: /var/www/html
+      DRUPAL_HTTPS: "off"
     volumes: 
       - ${DOCUMENT_ROOT-./www/web}:/var/www/html
     depends_on:
