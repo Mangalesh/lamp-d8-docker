@@ -30,3 +30,12 @@ services:
       MYSQL_DATABASE: d8_docker
       MYSQL_USER: root
       MYSQL_PASSWORD: root
+  drupal:
+    image: drupal:latest
+    ports:
+      - 8080:80
+    volumes: 
+      - ${DOCUMENT_ROOT-./www/web}:/var/www/html
+    depends_on:
+      - mysql
+    restart: always
